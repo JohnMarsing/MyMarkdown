@@ -1,14 +1,14 @@
 # Mind Maps
 
-https://newdevsguide.com/2023/04/14/mermaid-mind-maps/
+[Mind Maps example](https://newdevsguide.com/2023/04/14/mermaid-mind-maps/)
 
 
 Basic Mind Maps in Mermaid.js
 At their core, **mind maps are just outlines** and so the markdown for them is very similar to an outline:
 
-```
+```mermaid
 mindmap
-    Mermaid.js Mind Map Article
+ Article
         Basic Mind Map
             Indentation
         Shapes
@@ -24,8 +24,8 @@ mindmap
             Other Icons
 ```
 
-Different Shapes 
-```
+### Different Shapes 
+```mermaid
 mindmap
     Shapes
         Default
