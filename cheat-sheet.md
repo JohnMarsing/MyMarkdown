@@ -33,3 +33,5 @@ You must refresh <kbd>Ctrl</kbd>+<kbd>Alt</kbd>+<kbd>R</kbd> to see the changes
 - ==Data Transfer Object== 
 - X^2^
 - X<sup>2</sup>
+
+### [Adding Diagrams and visualizations in your Azure DevOps wiki using Mermaid](https://dailydotnettips.com/adding-diagram-and-visualizations-in-your-azure-devops-wiki-using-mermaid/)
