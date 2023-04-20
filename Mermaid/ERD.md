@@ -1,0 +1,8 @@
+
+
+```
+erDiagram
+    COUNTRY
+    STATE
+    CITY
+```
