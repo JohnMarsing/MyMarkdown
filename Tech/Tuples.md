@@ -23,7 +23,7 @@ public class RegistrationVM
 ```
 
 ## `Helper.cs`
-```
+```csharp
 using System;
 using System.Linq;
 
