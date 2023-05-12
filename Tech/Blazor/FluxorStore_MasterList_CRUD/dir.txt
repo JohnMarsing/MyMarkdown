@@ -1,0 +1,26 @@
+ Volume in drive C has no label.
+ Volume Serial Number is 06B4-5C78
+
+ Directory of C:\Users\JohnM\source\repos\MyMarkdown\Tech\Blazor\FluxorStore_MasterList_CRUD
+
+05/12/2023  10:52 AM    <DIR>          .
+05/12/2023  10:52 AM    <DIR>          ..
+05/11/2023  10:05 AM           259,912 01-Index-page-SpecialEvents-razor-and-code-behind.jpg
+05/11/2023  11:47 AM           328,852 02-MasterList-Table-screen-shot-with-razor-code.jpg
+05/11/2023  12:03 PM           698,181 03-MasterList-and-ActionButtons-and-Crud-enum.jpg
+05/11/2023  09:40 AM           349,845 20-MasterList-XsOrSm-card-screen-shot.jpg
+05/11/2023  12:39 PM           394,715 21-Form-Edit-Mode.jpg
+05/11/2023  12:27 PM            97,445 23-DisplayCard.jpg
+05/11/2023  02:35 PM           246,102 24-DisplayCard-razor.jpg
+05/11/2023  02:38 PM           243,511 25-DisplayCard-code-behind.jpg
+05/11/2023  11:42 AM           180,380 60-Delete-Modal-Screen-Shot.jpg
+05/11/2023  12:12 PM           124,260 70-AddEditDisplay-and-VisibleComponent-Enums.jpg
+05/11/2023  02:43 PM            34,637 71-FormVM.jpg
+05/11/2023  02:44 PM            63,025 72-SaveCancelConstants.jpg
+05/11/2023  02:46 PM           131,579 73-YouTube-Button.jpg
+05/12/2023  10:52 AM                 0 dir.txt
+              14 File(s)      3,152,444 bytes
+
+     Total Files Listed:
+              14 File(s)      3,152,444 bytes
+               2 Dir(s)  327,538,348,032 bytes free
