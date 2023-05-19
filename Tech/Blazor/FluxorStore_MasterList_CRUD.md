@@ -1,72 +1,20 @@
+
 # Special Events MasterList / Detail component
 - This uses Vertical Slice Architecture and the folder that this component lives is **SpecialEvents**
 - On the [Living Messiah](https://LivingMessiah.com/) website there are normal weekly events that occur every week and periodically an extraordinary event occurs which needs to be shown on the website in a timely fashion.  The Special Event component keeps track of this types of events, see [Living Messiah](https://LivingMessiah.com/UpcomingEvents)
+
+You could in theory, fairly easily I would think, swap out the MasterList and put in it's place a `BlazoredTypeahead` component or, instead of the TableTemplate in MasterList, use a Grid component
+
+## Solution Explorer
+- Inspired by Vertical Architecture
+
+![alt text](FluxorStore_MasterList_CRUD/00-Solution-Explorer.jpg "Title")
+
 
 ## Index Screen shot
 ![alt text](FluxorStore_MasterList_CRUD/02-MasterList-Table-screen-shot-with-razor-code.jpg "Title")
 
 ## Index.razor.cs
-
-**1.1 Get_List_...**
-
-## `GetList()` 
-![alt text](FluxorStore_MasterList_CRUD/40-Effect-Get-List.jpg "Title")
-
-## External References...
-
-- Form.razor.cs
-  - HandleValidSubmit 
-
-- MasterList.razor.cs
-  - OnInitialized if (SpecialEventsState!.Value.SpecialEventList is null) i.e.first time
-  - ReturnedCrud case nameof(Enums.Crud.Delete)
-  - ReturnedCrud case Repopulate
-
-
-**1.2 Get_Item_...**
-**Get_Item_Action**
-
-
-## `GetItem()` 
-![alt text](FluxorStore_MasterList_CRUD/41-Effect-Get-Item.jpg "Title")
-
-**1.3 Actions related to Form Submission**
-## `Submit()` 
-![alt text](FluxorStore_MasterList_CRUD/42-Effect-Submit.jpg "Title")
-
-
-
-**1.5 Actions related deletions**
-## `Delete()` 
-![alt text](FluxorStore_MasterList_CRUD/43-Effect-Delete.jpg "Title")
-
-
-**1.6 PageHeader actions**
-
-## `MasterList!ReturnedCrud()` 
-
-#### CallBack example
-```razor
-<ActionButtons 
-	OnCrudActionSelected="@ReturnedCrud" 
-	ParmCrud="Enums.Crud.Add" 
-	IsXsOrSm="@IsXsOrSm" 
-	Id="0" />
-```
-
-```csharp
-	private async Task ReturnedCrud(CrudAndIdArgs args)
-	{
-		switch (args.Crud.Name)
-		{
-			case nameof(Enums.Crud.Add):
-				Dispatcher!.Dispatch(new Add_Action());
-				Dispatcher!.Dispatch(new Set_PageHeader_For_Detail_Action(args.Crud.Name, args.Crud!.Icon, args.Crud!.Color, args.Id));
-				break;
-// ...				
-```
-
-![alt text](FluxorStore_MasterList_CRUD/50-Set_PageHeader_For_Detail_Action.jpg "Title")
 
 Transition from...
 ![alt text](FluxorStore_MasterList_CRUD/51-Transition-from-Index-to-Detail.jpg "Title")
@@ -89,6 +37,7 @@ like all `Index.razor` files this is no different in that it contains and orches
 ## `Index.razor` 
 
 ![alt text](FluxorStore_MasterList_CRUD/01-Index-page-SpecialEvents-razor-and-code-behind.jpg "Title")
+
 
 ## 1. `PageHeader.razor.cs`
 PageHeader shows the top section of the Index page along with some dynamic content that shown on the right. It contains the `<PageTitle />` component which is found in `Index.razor` components that have the `@page` directive.  
@@ -184,6 +133,68 @@ public record Set_PageHeader_For_Detail_Action(
         string Title, string Icon, string Color, int Id);
 
 ```
+
+
+**1.1 Get_List_...**
+
+## `GetList()` 
+![alt text](FluxorStore_MasterList_CRUD/40-Effect-Get-List.jpg "Title")
+
+## External References...
+
+- Form.razor.cs
+  - HandleValidSubmit 
+
+- MasterList.razor.cs
+  - OnInitialized if (SpecialEventsState!.Value.SpecialEventList is null) i.e.first time
+  - ReturnedCrud case nameof(Enums.Crud.Delete)
+  - ReturnedCrud case Repopulate
+
+
+**1.2 Get_Item_...**
+**Get_Item_Action**
+
+
+## `GetItem()` 
+![alt text](FluxorStore_MasterList_CRUD/41-Effect-Get-Item.jpg "Title")
+
+**1.3 Actions related to Form Submission**
+## `Submit()` 
+![alt text](FluxorStore_MasterList_CRUD/42-Effect-Submit.jpg "Title")
+
+
+
+**1.5 Actions related deletions**
+## `Delete()` 
+![alt text](FluxorStore_MasterList_CRUD/43-Effect-Delete.jpg "Title")
+
+
+**1.6 PageHeader actions**
+
+## `MasterList!ReturnedCrud()` 
+
+#### CallBack example
+```razor
+<ActionButtons 
+  OnCrudActionSelected="@ReturnedCrud" 
+	ParmCrud="Enums.Crud.Add" 
+	IsXsOrSm="@IsXsOrSm" 
+	Id="0" />
+```
+
+```csharp
+	private async Task ReturnedCrud(CrudAndIdArgs args)
+	{
+		switch (args.Crud.Name)
+		{
+			case nameof(Enums.Crud.Add):
+				Dispatcher!.Dispatch(new Add_Action());
+				Dispatcher!.Dispatch(new Set_PageHeader_For_Detail_Action(args.Crud.Name, args.Crud!.Icon, args.Crud!.Color, args.Id));
+				break;
+// ...				
+```
+
+![alt text](FluxorStore_MasterList_CRUD/50-Set_PageHeader_For_Detail_Action.jpg "Title")
 
 
 ## 2. State
@@ -312,4 +323,109 @@ PageHeaderVM = Constants.GetPageHeaderForIndexVM()
 ```csharp
 PageHeaderVM = new PageHeaderVM 
   { Title = action.Title, Icon = action.con, Color = action.Color, Id = action.Id }
+```
+
+# Other
+
+## `ShowMasterIndex.cs`
+
+This button is found in `Index.razor` and is a toggle that becomes visible only when the `MasterList` is NOT shown. This occurs when the user selects one of the rows of the master list by clicking the Add/Edit/Display button
+
+A `Dispatcher!.Dispatch` to `Set_PageHeader_For_Index_Action` is called to make the index visible
+![alt text](FluxorStore_MasterList_CRUD/91-ShowMasterIndex.jpg "Title")
+
+
+## `ToasterSpecialEvents.razor.cs`
+
+This is a cool component because the toast related stuff is centralized and done though **dispataching** (I got this code from Eric King, [see](https://github.com/eric-king/BlazorWithFluxor)).  It's also done in context to **SpecialEvents**, so if I had another slice in my vertical architecture, it would have it's own component.  
+
+
+Place this in the `Index.razor` of SpecialEvents
+![alt text](FluxorStore_MasterList_CRUD/90-Index-page-ToasterSpecialEvents.jpg "Title")
+
+ToConsider: If you wanted to, you could change the user's profile to set the degree of toast verbosity.
+
+- the only thing in `ToasterSpecialEvents.razor` is...
+  - `@inherits FluxorComponent`
+  - the rest is code behind
+
+```csharp
+using Blazored.Toast.Services;
+using Microsoft.AspNetCore.Components;
+
+namespace BlzSrvFlxSrl.Features.SpecialEvents;
+
+public partial class ToasterSpecialEvents
+{
+  [Inject] public IToastService? Toast { get; set; }
+  protected override void OnInitialized()
+  {
+    //SubscribeToAction<Get_List_Success_Action>(Get_List_Success_Toast); // Too much chatter
+    SubscribeToAction<Get_List_Warning_Action>(Get_List_Warning_Toast);
+    SubscribeToAction<Get_List_Failure_Action>(Get_List_Failure_Toast);
+
+    SubscribeToAction<Get_Item_Success_Action>(Get_Item_Success_Toast);
+    SubscribeToAction<Get_Item_Warning_Action>(Get_Item_Warning_Toast);
+    SubscribeToAction<Get_Item_Failure_Action>(Get_Item_Failure_Toast);
+
+    SubscribeToAction<Submitted_Response_Success_Action>(Submitted_Response_Success_Toast);
+    SubscribeToAction<Submitted_Response_Failure_Action>(Submitted_Response_Failure_Toast);
+
+    SubscribeToAction<DeleteSuccess_Action>(DeleteSuccess_Toast);
+    SubscribeToAction<DeleteFailure_Action>(DeleteFailure_Toast);
+
+    //SubscribeToAction<PageHeader_Action>(PageHeader_Toast);
+    //SubscribeToAction<SetDateRange_Action>(SetDateRange_Toast);
+    base.OnInitialized();
+  }
+
+  //private void Get_List_Success_Toast(Get_List_Success_Action action) => Toast!.ShowInfo($"Got list of {action.SpecialEvents.Count} records");
+
+  private void Get_List_Warning_Toast(Get_List_Warning_Action action) => Toast!.ShowWarning($"No records found");
+  private void Get_List_Failure_Toast(Get_List_Failure_Action action) => Toast!.ShowError($"{action.ErrorMessage}");
+
+  private void Get_Item_Success_Toast(Get_Item_Success_Action action) => Toast!.ShowInfo($"Got {action.FormVM!.Title!}");
+  private void Get_Item_Warning_Toast(Get_Item_Warning_Action action) => Toast!.ShowWarning($"{action.WarningMessage}");
+  private void Get_Item_Failure_Toast(Get_Item_Failure_Action action) => Toast!.ShowError($"{action.ErrorMessage}");
+
+  private void Submitted_Response_Success_Toast(Submitted_Response_Success_Action action) => Toast!.ShowSuccess($"{action.SuccessMessage}");
+  private void Submitted_Response_Failure_Toast(Submitted_Response_Failure_Action action) => Toast!.ShowError($"Form submit error; ErrorMessage: {action.ErrorMessage}");
+  private void DeleteSuccess_Toast(DeleteSuccess_Action action) => Toast!.ShowSuccess(action.SuccessMessage);
+  private void DeleteFailure_Toast(DeleteFailure_Action action) => Toast!.ShowError($"Failed to delete Special Events; {action.ErrorMessage}");
+
+  //private void PageHeader_Toast(PageHeader_Action action) => Toast!.ShowInfo($"PageHeader Title: {action.Title}");
+  //private void SetDateRange_Toast(SetDateRange_Action action) => Toast!.ShowInfo($"Selected Date Range: {action.DateBegin.ToString("yyyy-MM-dd")} to {action.DateEnd.ToString("yyyy-MM-dd")}");
+}
+```
+
+## `YouTubeButton.razor``
+This component button used by the `MasterList.razor`.  It's a `<div class="card-footer"></div>` when the media query is `IsXsOrSm` and  a `<td></td>` in the `TableTemplate` when not `IsXsOrSm`.
+
+Place this in the `Index.razor` of SpecialEvents
+![alt text](FluxorStore_MasterList_CRUD/73-YouTube-Button.jpg "Title")
+
+
+# Other NOT YET USED
+## `EditMarkdownVM.cs`
+This is allows the user to edit the description field which is a markdown enabled control
+
+- ToDo: Implement this
+- ToDo: Need to convert to **FluentValidation**
+
+```csharp
+public class EditMarkdownVM
+{
+    [Required]
+    [Key]
+    public int Id { get; set; }
+
+    public string? Title { get; set; }
+
+    //[DataType(DataType.MultilineText)]
+    //[Required(ErrorMessage = "A description is required")]
+    //[MinLength(10, ErrorMessage = "Please enter at least 10 characters based on HTML.")]
+    //[MaxLength(3000, ErrorMessage = "Please enter no more than at least 3,000... were not writing a novel.")]
+    [DisplayName("Markdown Description")]
+    public string? Description { get; set; }
+}
 ```
